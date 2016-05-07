@@ -6,6 +6,9 @@
 #include "SolverResult.hxx"
 #include "Variable.hxx"
 
+/**
+ * Reads CFN formula from input (in DIMACS format), performs computation, prints result to output.
+ */
 class Solver
 {
     typedef int Literal;

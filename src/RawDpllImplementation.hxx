@@ -21,6 +21,9 @@ public:
     SolverResult trySolve();
 
     const std::vector<Variable> getModel() const;
+
+private:
+    bool isModelOfSatInstance() const;
 };
 
 
