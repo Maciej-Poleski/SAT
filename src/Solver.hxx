@@ -25,6 +25,10 @@ class Solver
     // Executor is external
     friend class RawDpllImplementation;
 
+    friend class DpllUpImplementation; // TODO inject here
+
+    friend class TwoWatchedLiterals;
+
 public:
     Solver(std::istream &in);
 

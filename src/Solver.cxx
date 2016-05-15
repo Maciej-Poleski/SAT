@@ -4,7 +4,7 @@
 #include <boost/lexical_cast.hpp>
 #include "Solver.hxx"
 #include "DimacsFormatException.hxx"
-#include "RawDpllImplementation.hxx"
+#include "DpllUpImplementation.hxx"
 
 using namespace std;
 
@@ -69,7 +69,7 @@ Solver::Solver(std::istream &in)
 void Solver::solve(std::ostream &out)
 {
     out << "c !!!WARNING!!! This is raw DPLL. Expect very long runtime\n";
-    RawDpllImplementation impl(*this);
+    DpllUpImplementation impl(*this); // TODO inject implementation here
     auto result = impl.trySolve();
     switch (result) {
         case SolverResult::SAT:
