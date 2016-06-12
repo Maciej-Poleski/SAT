@@ -60,6 +60,7 @@ bool DpllUpImplementation::solveSat(std::unordered_set<Literal> &variablesToBeAs
             model[abs(l)] = Variable::UNKNOWN;
             variablesToBeAssigned.insert(abs(l));
         }
+        return false;
     }
 }
 

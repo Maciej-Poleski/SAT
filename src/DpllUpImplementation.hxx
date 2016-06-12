@@ -20,6 +20,8 @@ class DpllUpImplementation
     typedef Solver::Literal Literal; // NOTE type is from SAT instance, this class needs type of instance (template)
     typedef Solver::Clause ClauseRepresentation;
 
+    friend class TwoWatchedLiterals;
+
 public:
     DpllUpImplementation(Solver &satInstance);
 

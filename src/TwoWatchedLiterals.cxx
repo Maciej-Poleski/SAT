@@ -35,6 +35,9 @@ TwoWatchedLiterals::TwoWatchedLiterals(Solver &satInstance, DpllUpImplementation
             // unit clause - skip
             continue;
         }
+        if (literalsCollected == 0) {
+            continue; // clause is negative
+        }
         clauseInfo.unknownPoolBegin = clauseInfo.literalIdx[1] + 1;
         clausesInfo[clauseIdx] = clauseInfo;
         twl.insert({clause[clauseInfo.literalIdx[0]], {clauseIdx, clauseInfo.literalIdx[0]}});

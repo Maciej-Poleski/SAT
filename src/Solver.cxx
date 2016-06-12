@@ -5,6 +5,7 @@
 #include "Solver.hxx"
 #include "DimacsFormatException.hxx"
 #include "DpllUpImplementation.hxx"
+#include "RawDpllImplementation.hxx"
 
 using namespace std;
 
@@ -45,7 +46,7 @@ Solver::Solver(std::istream &in)
             formula.emplace_back();
             formula.back().reserve(nbVariables);
             istringstream parser(line);
-            for (; ;) {
+            for (;;) {
                 string word;
                 parser >> word;
                 Literal l;
@@ -68,30 +69,33 @@ Solver::Solver(std::istream &in)
 
 void Solver::solve(std::ostream &out)
 {
-    out << "c !!!WARNING!!! This is raw DPLL. Expect very long runtime\n";
+    //out << "c !!!WARNING!!! This is raw DPLL. Expect very long runtime\n";
     DpllUpImplementation impl(*this); // TODO inject implementation here
     auto result = impl.trySolve();
     switch (result) {
         case SolverResult::SAT:
-            out << "s SATISFIABLE\n";
+            out << "SAT\n"; //"s SATISFIABLE\n";
             break;
         case SolverResult::UNSAT:
-            out << "s UNSATISFIABLE\n";
+            out << "UNSAT\n"; //"s UNSATISFIABLE\n";
             break;
-        case SolverResult::UNKNOWN:
+        default:
+            assert(result == SolverResult::UNKNOWN);
             out << "s UNKNOWN\n";
             break;
     }
     if (result == SolverResult::SAT) {
-        out << 'v';
+        //out << 'v';
         auto &model = impl.getModel();
         for (int i = 1; i < model.size(); ++i) {
-            assert(model[i] != Variable::UNKNOWN);
-            out << ' ';
+            if (model[i] == Variable::UNKNOWN) {
+                continue;
+            }
             if (model[i] == Variable::NEGATIVE) {
                 out << '-';
             }
-            out << i;
+            out << i << ' ';
         }
+        out << "0\n";
     }
 }
