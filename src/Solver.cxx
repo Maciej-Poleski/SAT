@@ -6,6 +6,7 @@
 #include "DimacsFormatException.hxx"
 #include "DpllUpImplementation.hxx"
 #include "RawDpllImplementation.hxx"
+#include "GraspTwlImplementation.hxx"
 
 using namespace std;
 
@@ -70,7 +71,7 @@ Solver::Solver(std::istream &in)
 void Solver::solve(std::ostream &out)
 {
     //out << "c !!!WARNING!!! This is raw DPLL. Expect very long runtime\n";
-    DpllUpImplementation impl(*this); // TODO inject implementation here
+    GraspTwlImplementation impl(*this); // TODO inject implementation here
     auto result = impl.trySolve();
     switch (result) {
         case SolverResult::SAT:

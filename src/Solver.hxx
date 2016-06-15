@@ -27,7 +27,11 @@ class Solver
 
     friend class DpllUpImplementation; // TODO inject here
 
+    friend class GraspTwlImplementation;
+
     friend class TwoWatchedLiterals;
+
+    friend class ChaffTwoWatchedLiterals;
 
 public:
     Solver(std::istream &in);
